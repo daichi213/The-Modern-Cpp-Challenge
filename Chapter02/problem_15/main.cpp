@@ -7,10 +7,18 @@ class ipv4
 {
    std::array<unsigned char, 4> data;
 public:
+   // constexprはコンパイル時に定数として定義される
+   // そのため、メモリなどを最適化することができる
+   // サイズ４の配列を全要素「0」で初期化
+   // ↓みたいな感じ？
+   // constexpr ipv4() :
+   //    data{ {0} } {}
    constexpr ipv4() :data{ {0} } {}
+   // 文字列a,b,c,dを配列に当てはめて初期化
    constexpr ipv4(unsigned char const a, unsigned char const b, 
                   unsigned char const c, unsigned char const d):
       data{{a,b,c,d}} {}
+   // 
    explicit constexpr ipv4(unsigned long a) :
       data{ { static_cast<unsigned char>((a >> 24) & 0xFF), 
               static_cast<unsigned char>((a >> 16) & 0xFF),
